@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phishing</title>
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+      cursor: pointer;
+    }
+    audio {
+      display: none;
+    }
+    button {
+      width: 200px;
+      height: 262px;
+      aspect-ratio: 200 / 262;
+      background: gray url(images/phishing.jpg) no-repeat center center;
+      background-size: cover;
+      cursor: pointer;
+      text-indent: -999rem;
+    }
+  </style>
+</head>
+<body>
+  <button id="playBtn">Report to Phishing</button>
+
+  <audio id="myAudio" src="audio/na-na-fishing.mp3"></audio>
+
+  <script>
+    const audio = document.getElementById('myAudio');
+    const button = document.getElementById('playBtn');
+
+    // Start position
+    const startTime = 1; 
+    // End position
+    const endTime = 8.9;
+
+    // Ensure metadata is loaded before seeking
+    audio.addEventListener('loadedmetadata', () => {
+      audio.currentTime = startTime;
+    });
+
+    // Stop playback when reaching endTime
+    audio.addEventListener('timeupdate', () => {
+      if (audio.currentTime >= endTime) {
+        audio.pause();
+        audio.currentTime = startTime; // optional: reset to start
+      }
+    });
+
+    button.addEventListener('click', () => {
+      if (audio.readyState >= 1) {
+        audio.currentTime = startTime;
+      }
+      audio.play();
+    });
+  </script>
+</body>
+</html>
